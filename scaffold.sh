@@ -120,7 +120,7 @@ cat > binder/postBuild <<'BASH'
 set -euo pipefail
 
 # Bootstrap uv (fast, single-binary installer).
-pip install --no-cache-dir uv
+pip install --no-cache-dir uv==0.10.9
 
 # Install notebook deps from the single source of truth (pyproject.toml).
 uv export --no-hashes --group notebooks | uv pip install --system --no-cache -r -
