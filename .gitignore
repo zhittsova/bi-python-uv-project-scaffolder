@@ -1,3 +1,15 @@
-.history
+# macOS
+.DS_Store
+
+# Editor / IDE
+.history/
+*.swp
+*.swo
+*~
+
+# Environment
 .env
 .env.local
+
+# Test output (from scaffolded projects)
+test-project/
