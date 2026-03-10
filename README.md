@@ -84,6 +84,7 @@ chmod +x scaffold.sh
 ```
 
 The script:
+
 1. Creates `my-cool-project/` with the full directory tree
 2. Fetches `.gitignore` from GitHub's Python template
 3. Runs `uv init` to initialise the workspace root
@@ -204,6 +205,7 @@ Fetched live from
 coverage of `__pycache__/`, `.venv/`, `*.egg-info/`, `.mypy_cache/`, etc.
 
 Project-specific extras are appended:
+
 - OS junk files (`.DS_Store`, `Thumbs.db`, `.directory`, etc.)
 - `.history/` (VS Code local history)
 - `**/outputs/` (regenerated artifacts)
@@ -263,6 +265,7 @@ Generic targets that work for any project:
 ### VS Code configuration
 
 **`.vscode/settings.json`** — per-folder settings:
+
 - Python interpreter → `.venv/bin/python`
 - pytest enabled, unittest disabled
 - Pylance diagnostic overrides (suppress missing stubs noise)
@@ -270,11 +273,13 @@ Generic targets that work for any project:
 - Line length 120
 
 **`pyrightconfig.json`** — Pylance / pyright:
+
 - Strict type checking mode
 - Include/extra paths for `packages/**/src`, `apps/**/src`, and tests
 - `reportMissingTypeStubs` and `reportUnknownMemberType` suppressed
 
 **`<project>.code-workspace`** — VS Code multi-root workspace file:
+
 - Single root folder (`.`)
 - Mirrors the settings from `settings.json`
 - Extension recommendations: Python, Pylance, ruff
@@ -282,6 +287,7 @@ Generic targets that work for any project:
 ### CITATION.cff
 
 Auto-populated from `git config user.name`:
+
 - `given-names` and `family-names` split from the full name
 - `date-released` set to today's date
 - License: GPL-3.0-or-later
@@ -322,6 +328,7 @@ workspace), repo2docker would fail trying to `pip install .`. Placing the config
 ### README.md & DEVELOP.md
 
 **README.md** includes:
+
 - CI + Binder badges (auto-populated with your GitHub username from `git config github.user`)
 - Quickstart (`make setup`, `make check`)
 - Project layout overview
@@ -330,6 +337,7 @@ workspace), repo2docker would fail trying to `pip install .`. Placing the config
 - Link to `DEVELOP.md`
 
 **DEVELOP.md** is a comprehensive developer guide covering:
+
 - Initial setup
 - Adding workspace packages (`uv init --package --build-backend uv`)
 - Dependency groups (PEP 735) with table
