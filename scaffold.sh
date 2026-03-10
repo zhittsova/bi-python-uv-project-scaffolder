@@ -94,6 +94,25 @@ fi
 
 cat >> .gitignore <<'EXTRA'
 
+# ---------- OS ----------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux (KDE, GNOME, etc.)
+.directory
+*~
+.Trash-*
+
 # ---------- project-specific ----------
 # VS Code local history
 .history/
@@ -120,7 +139,7 @@ cat > binder/postBuild <<'BASH'
 set -euo pipefail
 
 # Bootstrap uv (fast, single-binary installer).
-pip install --no-cache-dir uv==0.10.9
+pip install --no-cache-dir 'uv>=0.10,<0.11'
 
 # Install notebook deps from the single source of truth (pyproject.toml).
 uv export --no-hashes --group notebooks | uv pip install --system --no-cache -r -
