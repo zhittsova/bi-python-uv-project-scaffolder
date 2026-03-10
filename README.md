@@ -27,6 +27,7 @@ No cookiecutter, no copier, no templates repo — just `bash` + `uv`.
   - [VS Code configuration](#vs-code-configuration)
   - [CITATION.cff](#citationcff)
   - [Documentation templates](#documentation-templates)
+  - [Binder](#binder)
   - [README.md & DEVELOP.md](#readmemd--developmd)
   - [main.py](#mainpy)
   - [Placeholder test](#placeholder-test)
@@ -161,6 +162,9 @@ my-cool-project/
 ├── tests/
 │   ├── __init__.py
 │   └── test_placeholder.py
+├── binder/
+│   ├── postBuild                   # Installs deps via uv into Binder's env
+│   └── runtime.txt                 # Pins Python version for Binder
 ├── .gitignore                      # GitHub Python template + project extras
 ├── .pre-commit-config.yaml         # ruff + pre-commit-hooks
 ├── CITATION.cff                    # Auto-populated from git config
@@ -170,7 +174,7 @@ my-cool-project/
 ├── my-cool-project.code-workspace  # VS Code multi-root workspace
 ├── pyproject.toml                  # Root config: deps, tools, workspace
 ├── pyrightconfig.json              # Pylance / pyright strict mode
-└── README.md                       # Project readme with CI badge
+└── README.md                       # Project readme with CI + Binder badges
 ```
 
 ---
@@ -190,6 +194,7 @@ my-cool-project/
 | `tests/` | Root-level test directory | No |
 | `.vscode/` | Editor settings (shared via git) | No |
 | `.github/workflows/` | CI pipeline | No |
+| `binder/` | Binder config (`postBuild` + `runtime.txt`) for mybinder.org | No |
 
 ### .gitignore
 
@@ -199,6 +204,7 @@ Fetched live from
 coverage of `__pycache__/`, `.venv/`, `*.egg-info/`, `.mypy_cache/`, etc.
 
 Project-specific extras are appended:
+- OS junk files (`.DS_Store`, `Thumbs.db`, `.directory`, etc.)
 - `.history/` (VS Code local history)
 - `**/outputs/` (regenerated artifacts)
 
@@ -296,10 +302,27 @@ Seven starter docs in `docs/`:
 
 Each file contains a heading and HTML comment prompts — fill them in as the project evolves.
 
+### Binder
+
+`binder/` contains two files that let anyone launch notebooks on
+[mybinder.org](https://mybinder.org) without installing anything locally:
+
+- **`runtime.txt`** — pins the Python version (e.g., `python-3.13`)
+- **`postBuild`** — bootstraps `uv`, exports the `notebooks` dependency group from
+  `pyproject.toml`, and installs any workspace packages found under `packages/`.
+  This avoids duplicating dependencies in a separate `requirements.txt`.
+
+Because the root `pyproject.toml` uses `uv_build` with `package = false` (virtual
+workspace), repo2docker would fail trying to `pip install .`. Placing the config in
+`binder/` makes repo2docker ignore the root `pyproject.toml` entirely.
+
+> **Note:** mybinder.org has limited ephemeral disk space. Notebooks that write large
+> files at runtime may hit the quota. For heavy pipelines, run locally with `make sync`.
+
 ### README.md & DEVELOP.md
 
 **README.md** includes:
-- CI badge (auto-populated with your GitHub username from `git config github.user`)
+- CI + Binder badges (auto-populated with your GitHub username from `git config github.user`)
 - Quickstart (`make setup`, `make check`)
 - Project layout overview
 - Links to all docs

@@ -527,6 +527,7 @@ cat > README.md <<MD
 # ${PROJECT}
 
 ![CI](https://github.com/${GH_USER}/${PROJECT}/actions/workflows/ci.yml/badge.svg)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/${GH_USER}/${PROJECT}/main?labpath=notebooks)
 
 > _One-line project description._
 
