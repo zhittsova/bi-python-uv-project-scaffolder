@@ -314,6 +314,22 @@ clean:
 MAKE
 
 # ---------------------------------------------------------------------------
+# .github/dependabot.yml
+# ---------------------------------------------------------------------------
+echo "   ↳ .github/dependabot.yml"
+cat > .github/dependabot.yml <<'GHD'
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+GHD
+
+# ---------------------------------------------------------------------------
 # .github/workflows/ci.yml
 # ---------------------------------------------------------------------------
 echo "   ↳ .github/workflows/ci.yml"
